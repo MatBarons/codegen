@@ -2,6 +2,8 @@ import subprocess
 import os
 from InquirerPy import inquirer
 
+from utils.utils import create_folders
+
 from .http_interceptor import add_http_interceptor_support
 from .l10n import add_l10n_support
 from .login import add_login_support
@@ -14,28 +16,6 @@ def run_flutter_create(project_name):
     print(f"Creating Flutter project: {project_name}")
     subprocess.run(["flutter", "create", project_name],shell=True,check=True)
 
-def create_gitkeep(folder_path):
-    gitkeep_path = os.path.join(folder_path, ".gitkeep")
-    with open(gitkeep_path, "w") as file:
-        pass 
-
-def create_lib_folders(project_path):
-    # Define the folder paths you want to create within 'lib'
-    folders_to_create = [
-        "lib/services",
-        "lib/widgets",
-        "lib/screens",
-        "lib/models",
-        "lib/utils"
-    ]
-    
-    # Create each folder path
-    for folder in folders_to_create:
-        folder_path = os.path.join(project_path, folder)
-        os.makedirs(folder_path, exist_ok=True)
-        print(f"Created folder: {folder_path}")
-        create_gitkeep(folder_path)
-
 def create_flutter_project():
     # Step 1: Ask for project name and create the project
     project_name = input("Enter the project name: ")
@@ -45,7 +25,14 @@ def create_flutter_project():
     project_path = os.path.join(os.getcwd(), project_name)
     main_dart_path = os.path.join(project_path, "lib", "main.dart")
     # Add folders
-    create_lib_folders(project_path)
+    folders = [
+            "lib/services",
+            "lib/widgets",
+            "lib/screens",
+            "lib/models",
+            "lib/utils"
+        ]
+    create_folders(folders,project_path)
     setup_main(main_dart_path)
 
     add_http_interceptor = inquirer.confirm(

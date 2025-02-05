@@ -15,5 +15,3 @@ def init_program():
     if option == "Generate custom widget":
         generate_custom_widget()
 
-if __name__ == "__main__":
-    init_program()

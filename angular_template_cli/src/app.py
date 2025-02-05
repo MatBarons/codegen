@@ -1,15 +1,20 @@
 from InquirerPy import inquirer
 
+from .create_project.create_angular_template import create_angular_template
+
 
 
 def init_program():
     option = inquirer.select(
-        message="Which component you want to create:",
+        message="What you want to do:",
         choices=[
-            "Generate table",
+            "Generate new Angular project",
             "Generate custom widget"
         ]
     ).execute()
+
+    if option == "Generate new Angular project":
+        create_angular_template()
 
 
 
