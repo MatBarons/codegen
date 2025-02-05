@@ -1,0 +1,3 @@
+class OpenLoader{}
+
+class CloseLoader{}
