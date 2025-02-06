@@ -2,6 +2,7 @@ import os
 import re
 import shutil
 
+from utils.utils import write_file
 from .pubspec import modify_pubspec_yaml
 
 def add_l10n_support(project_path, languages,main_dart_path):
@@ -39,6 +40,7 @@ def add_l10n_support(project_path, languages,main_dart_path):
             with open(arb_file_path, "w") as file:
                 file.write('{\n  "@@locale": "' + lang_code + '"\n}\n')
             print(f"Added localization file: {arb_file_path}")
+
     modify_pubspec_yaml(project_path, "intl")
     modify_pubspec_yaml(project_path, """flutter_localizations:
         sdk: flutter #""")
@@ -116,11 +118,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';\n
     """
     delegates_pattern = r"MaterialApp\s*\("
     delegates_match = re.search(delegates_pattern,content, re.DOTALL)
-    if not delegates_match:
-        print("Could not find 'MaterialApp(' in main.dart.")
-        return 
-    delegates_position = delegates_match.end()
-    content = content[:delegates_position] + delegates + content[delegates_position:]
+    write_file(delegates_match,delegates)
+    
     languages.append('en')
     languages.append('it')
     locales_list = ",\n          ".join([f"Locale('{lang.strip()}')" for lang in languages])

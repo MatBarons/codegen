@@ -1,7 +1,8 @@
-from .pubspec import modify_pubspec_yaml
-from utils.utils import copy_folders
 import os
 import re
+
+from .pubspec import modify_pubspec_yaml
+from utils.utils import copy_folders,write_file
 
 def add_redux_support(project_path,main_dart_path,is_interceptor_added):
     """Modifies the project to add Redux support."""
@@ -31,13 +32,9 @@ def add_files_to_providers(project_path,main_dart_path):
     interceptors_source_dir = os.path.join(os.getcwd(), "src","create_project","data","interceptors")
     interceptors_destination_dir = os.path.join(project_path, "lib", "services","interceptors")
     copy_folders(interceptors_source_dir,interceptors_destination_dir)
-
+    
     add_redux_to_main(main_dart_path)
         
-
-
-
-
 def add_redux_to_main(main_dart_path):
     
     with open(main_dart_path, "r") as file:
@@ -61,12 +58,7 @@ import 'widgets/loader.dart';"""
 """
     main_function_pattern = r"void\s+main\s*\(\s*\)\s+async\s*\{"
     main_function_match = re.search(main_function_pattern,content)
-    if not main_function_match:
-        print("Could not find 'void main(){")
-        return 
-    
-    insert_position_main = main_function_match.end()
-    content = content[:insert_position_main] + main_function_redux + content[insert_position_main:]
+    write_file(main_function_match,main_function_redux)
     
     #adding interceptor widgets
     interceptor_widgets = """
@@ -75,12 +67,7 @@ import 'widgets/loader.dart';"""
 """
     stack_pattern = r"Stack\s*\(\s*children\s*:\s*\["
     stack_match = re.search(stack_pattern, content)
-    if not stack_match:
-        print("Could not find 'Stack(children: [' in main.dart.")
-        return 
-
-    insert_position = stack_match.end() 
-    content = content[:insert_position] + interceptor_widgets + content[insert_position:]   
+    write_file(stack_match,interceptor_widgets)
 
 
     if redux_imports.strip() not in content:

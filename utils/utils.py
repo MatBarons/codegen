@@ -26,3 +26,11 @@ def copy_folders(source_dir,destination_dir):
         else:
             shutil.copy2(source_item, destination_item)
     return
+
+def write_file(match,content_to_copy):
+    if not match:
+        print("Could not find {match}")
+        return 
+    
+    insert_position_main = match.end()
+    content = content[:insert_position_main] + content_to_copy + content[insert_position_main:]
