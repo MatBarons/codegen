@@ -1,5 +1,5 @@
 import os
-
+import shutil
 
 def create_gitkeep(folder_path):
     gitkeep_path = os.path.join(folder_path, ".gitkeep")
@@ -12,3 +12,17 @@ def create_folders(folders_to_create,project_path):
         os.makedirs(folder_path, exist_ok=True)
         print(f"Created folder: {folder_path}")
         create_gitkeep(folder_path)
+
+def copy_folders(source_dir,destination_dir):
+    os.makedirs(destination_dir, exist_ok=True)
+    
+    # Copy each item (file or subfolder) from 'source_dir' to 'destination_dir'
+    for item in os.listdir(source_dir):
+        source_item = os.path.join(source_dir, item)
+        destination_item = os.path.join(destination_dir, item)
+        
+        if os.path.isdir(source_item):
+            shutil.copytree(source_item, destination_item, dirs_exist_ok=True)
+        else:
+            shutil.copy2(source_item, destination_item)
+    return
