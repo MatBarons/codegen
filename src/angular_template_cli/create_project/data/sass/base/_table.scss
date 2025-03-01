@@ -1,0 +1,22 @@
+@use "sass:map";
+
+.custom-table {
+  width: 100%;
+  border-spacing: 0;
+  border-bottom: 2px solid var(--surface-container-low-color);
+  thead,
+  tfoot {
+    th {
+      padding: map.get($spaces, xs) map.get($spaces, md);
+      text-align: left;
+    }
+  }
+  tbody {
+    tr {
+      td {
+        padding: map.get($spaces, xs) map.get($spaces, md);
+        border-top: 2px solid var(--surface-container-low-color);
+      }
+    }
+  }
+}

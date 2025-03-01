@@ -1,0 +1,53 @@
+@use '@angular/material' as mat;
+
+:root {
+  @each $size, $space in $spaces {
+    --space-#{$size}: #{$space};
+  }
+  --primary-color: #{mat.get-theme-color($dark-theme, primary)};
+  --on-primary-color: #{mat.get-theme-color($dark-theme, on-primary)};
+  --secondary-container-color: #{mat.get-theme-color($dark-theme, secondary-container)};
+  --on-secondary-container-color: #{mat.get-theme-color($dark-theme, on-secondary-container)};
+  --surface-container-low-color:#{mat.get-theme-color($dark-theme, surface-container-low)};
+  --surface-container-lowest-color:#{mat.get-theme-color($dark-theme, surface-container-lowest)};
+  --on-surface-color: #{mat.get-theme-color($dark-theme,on-surface)};
+  --on-surface-variant-color: #{mat.get-theme-color($dark-theme,on-surface-variant)};
+  --error-color: #{mat.get-theme-color($dark-theme, error)};
+  --secondary-10: #{mat.get-theme-color($dark-theme, secondary, 10)};
+  --background-color: #{mat.get-theme-color($dark-theme, surface)};
+  --outline-color: #{mat.get-theme-color($dark-theme, outline)};
+  --outline-variant-color: #{mat.get-theme-color($dark-theme, outline-variant)};
+
+  @include light-theme() {
+    --primary-color: #{mat.get-theme-color($light-theme, primary)};
+    --on-primary-color: #{mat.get-theme-color($light-theme, on-primary)};
+    --secondary-container-color: #{mat.get-theme-color($light-theme, secondary-container)};
+    --on-secondary-container-color: #{mat.get-theme-color($light-theme, on-secondary-container)};
+    --surface-container-low-color:#{mat.get-theme-color($light-theme, surface-container-low)};
+    --surface-container-lowest-color:#{mat.get-theme-color($light-theme, surface-container-lowest)};
+    --on-surface-color: #{mat.get-theme-color($light-theme,on-surface)};
+    --on-surface-variant-color: #{mat.get-theme-color($light-theme,on-surface-variant)};
+    --error-color: #{mat.get-theme-color($light-theme, error)};
+    --secondary-10: #{mat.get-theme-color($light-theme, secondary, 10)};
+    --background-color: #{mat.get-theme-color($light-theme, surface)};
+    --outline-color: #{mat.get-theme-color($light-theme, outline)};
+    --outline-variant-color: #{mat.get-theme-color($light-theme, outline-variant)};
+  }
+}
+
+*, ::after, ::before{
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  &:has(loader){
+    overflow: hidden;
+  }
+}
+

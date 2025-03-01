@@ -1,0 +1,82 @@
+@use '@angular/material' as mat;
+@import "base/m3-theme";
+@include mat.core();
+
+$light-theme: mat.define-theme((
+  color: (
+    theme-type: light,
+    primary: $primary,
+    tertiary: $tertiary
+  ),
+));
+$dark-theme: mat.define-theme((
+  color: (
+    theme-type: dark,
+    primary: $primary,
+    tertiary: $tertiary
+  )
+));
+
+html{
+  @include mat.core-theme($dark-theme);
+  @include mat.button-theme($dark-theme);
+  @include mat.input-theme($dark-theme);
+  @include mat.form-field-theme($dark-theme);
+  @include mat.select-theme($dark-theme);
+  @include mat.toolbar-theme($dark-theme);
+  @include mat.sidenav-theme($dark-theme);
+  @include mat.snack-bar-theme($dark-theme);
+  @include mat.dialog-theme($dark-theme);
+  @include mat.table-theme($dark-theme);
+  @include mat.paginator-theme($dark-theme);
+  @include mat.icon-theme($dark-theme);
+  @include mat.icon-button-theme($dark-theme);
+  @include mat.button-toggle-theme($dark-theme);
+  @include mat.menu-theme($dark-theme);
+  @include mat.progress-spinner-theme($dark-theme);
+  @include mat.list-theme($dark-theme);
+  @include mat.card-theme($dark-theme);
+  @include mat.stepper-theme($dark-theme);
+  @include mat.fab-theme($dark-theme);
+  @include mat.datepicker-theme($dark-theme);
+  @include mat.chips-theme($dark-theme);
+  @include mat.tooltip-theme($dark-theme);
+  @include mat.autocomplete-theme($dark-theme);
+
+  @media (prefers-color-scheme: light) {
+    @include mat.core-color($light-theme);
+    @include mat.button-color($light-theme);
+    @include mat.input-color($light-theme);
+    @include mat.form-field-color($light-theme);
+    @include mat.select-color($light-theme);
+    @include mat.toolbar-color($light-theme);
+    @include mat.sidenav-color($light-theme);
+    @include mat.snack-bar-color($light-theme);
+    @include mat.dialog-color($light-theme);
+    @include mat.table-color($light-theme);
+    @include mat.paginator-color($light-theme);
+    @include mat.icon-color($light-theme);
+    @include mat.icon-button-color($light-theme);
+    @include mat.button-toggle-color($light-theme);
+    @include mat.menu-color($light-theme);
+    @include mat.progress-spinner-color($light-theme);
+    @include mat.card-color($light-theme);
+    @include mat.list-color($light-theme);
+    @include mat.stepper-color($light-theme);
+    @include mat.fab-color($light-theme);
+    @include mat.datepicker-color($light-theme);
+    @include mat.chips-color($light-theme);
+    @include mat.tooltip-color($light-theme);
+    @include mat.autocomplete-color($light-theme);
+  }
+  @include mat.all-component-typographies();
+}
+
+@import "abstract/variables";
+@import "abstract/functions";
+@import "abstract/mixins";
+@import "abstract/spaces";
+@import "base/grid";
+@import "base/margins";
+@import "base/paddings";
+@import "layout/root";

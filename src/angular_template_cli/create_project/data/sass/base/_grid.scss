@@ -1,0 +1,29 @@
+@use "sass:map";
+
+.custom-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  column-gap: map.get($spaces, md);
+  row-gap: map.get($spaces, md);
+  padding-left: toRem(24);
+  padding-right: toRem(24);
+  @include media-breakpoint-up(sm) {
+    grid-template-columns: repeat(8, 1fr);
+  }
+  @include media-breakpoint-up(md) {
+    grid-template-columns: repeat(12, 1fr);
+  }
+  &-margin-less{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    column-gap: map.get($spaces, md);
+    row-gap: map.get($spaces, md);
+    @include media-breakpoint-up(sm) {
+      grid-template-columns: repeat(8, 1fr);
+    }
+    @include media-breakpoint-up(md) {
+      grid-template-columns: repeat(12, 1fr);
+    }
+  }
+}
+

@@ -1,0 +1,17 @@
+#breadcrumbs {
+  display: flex;
+  align-items: center;
+  a {
+    text-decoration: none;
+    span{
+      white-space: pre;
+    }
+    &:visited {
+      color: inherit;
+    }
+
+    &:last-child {
+      font-weight: 600;
+    }
+  }
+}

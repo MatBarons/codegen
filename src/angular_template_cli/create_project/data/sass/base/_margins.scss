@@ -1,0 +1,23 @@
+@mixin margin-utility {
+  @each $size, $space in $spaces {
+    &-m-#{$size} {
+      margin: $space;
+    }
+    &-mt-#{$size} {
+      margin-top: $space;
+    }
+    &-mb-#{$size} {
+      margin-bottom: $space;
+    }
+    &-ml-#{$size} {
+      margin-bottom: $space;
+    }
+    &-mr-#{$size} {
+      margin-bottom: $space;
+    }
+  }
+}
+
+.project-name {
+  @include margin-utility;
+}

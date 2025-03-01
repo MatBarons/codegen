@@ -1,0 +1,17 @@
+$spaces: (
+  "4xs": .25rem,
+  "3xs": toRem(4),
+  "2xs": toRem(8),
+  xs: toRem(10),
+  sm: toRem(12),
+  md: toRem(16),
+  lg: toRem(18),
+  xl: toRem(24),
+  "2xl": toRem(32),
+  "3xl": toRem(40),
+  "4xl": toRem(56),
+  "5xl": toRem(80),
+  "6xl": toRem(100)
+) !default;
+
+

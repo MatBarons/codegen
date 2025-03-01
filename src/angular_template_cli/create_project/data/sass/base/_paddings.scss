@@ -1,0 +1,23 @@
+@mixin padding-utility {
+  @each $size, $space in $spaces {
+    &-p-#{$size} {
+      padding: $space;
+    }
+    &-pt-#{$size} {
+      padding-top: $space;
+    }
+    &-pb-#{$size} {
+      padding-bottom: $space;
+    }
+    &-pl-#{$size} {
+      padding-bottom: $space;
+    }
+    &-pr-#{$size} {
+      padding-bottom: $space;
+    }
+  }
+}
+
+.project-name {
+  @include padding-utility;
+}

@@ -1,0 +1,63 @@
+@use '_functions' as fun;
+
+$breakpoints-map: (
+  xs: 0,
+  sm: 600px,
+  md: 960px,
+  lg: 1280px,
+  xl: 1920px,
+) !default;
+
+@function breakpoint-min($name, $breakpoints: $breakpoints-map) {
+  $min: map-get($breakpoints, $name);
+  @return if($min != 0, $min, null);
+}
+
+@mixin media-breakpoint-up($name, $breakpoints: $breakpoints-map) {
+  $min: breakpoint-min($name, $breakpoints);
+  @if $min {
+    @media (min-width: $min) {
+      @content;
+    }
+  } @else {
+    @content;
+  }
+}
+
+@mixin light-theme() {
+  @media (prefers-color-scheme: light) {
+    @content
+  }
+}
+
+
+@mixin full-grid() {
+  grid-column: 1/5;
+  @include media-breakpoint-up(md) {
+    grid-column: 1/9;
+  }
+  @include media-breakpoint-up(lg) {
+    grid-column: 1/13;
+  }
+}
+
+@mixin placeholder($color) {
+  &::placeholder {
+    color: $color;
+    opacity: 1;
+  }
+
+  &:-ms-input-placeholder {
+    color: $color;
+  }
+
+  &::-ms-input-placeholder {
+    color: $color;
+  }
+}
+
+@mixin border-radius($radius) {
+  -webkit-border-radius: fun.toRem($radius);
+  -moz-border-radius: fun.toRem($radius);
+  border-radius: fun.toRem($radius);
+}

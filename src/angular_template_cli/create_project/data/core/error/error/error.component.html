@@ -1,0 +1,16 @@
+<div *transloco="let t">
+  <h2 mat-dialog-title>{{ t('error.' + data.title) }}</h2>
+  <mat-dialog-content>
+    <p>
+      {{ t(data.text) }}
+    </p>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-flat-button
+            color="primary"
+            [mat-dialog-close]="true"
+            cdkFocusInitial>
+      {{ t('button.close') }}
+    </button>
+  </mat-dialog-actions>
+</div>
