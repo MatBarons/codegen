@@ -1,7 +1,7 @@
 from InquirerPy import inquirer
 
-from flutter_template_cli.src.app import init_program as init_flutter
-from angular_template_cli.src.app import init_program as init_angular
+from src.flutter_template_cli.src.app import init_program as init_flutter
+from src.angular_template_cli.src.app import init_program as init_angular
 
 
 def init_program():
