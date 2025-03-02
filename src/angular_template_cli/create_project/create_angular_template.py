@@ -3,7 +3,7 @@ import subprocess
 from InquirerPy import inquirer
 
 from .i18n import add_i18n_support
-from utils.utils import copy_folders,write_file
+from utils.utils import copy_folders
 
 def run_ng_new(project_name):
     print(f"Creating Angular project: {project_name}")

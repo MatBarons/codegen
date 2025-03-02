@@ -2,8 +2,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 import {TranslocoService} from "@ngneat/transloco";
 
 @Pipe({
-  name: 'missingInformation',
-  standalone: true
+  name: 'missingInformation'
 })
 export class MissingInformationPipe implements PipeTransform {
 
