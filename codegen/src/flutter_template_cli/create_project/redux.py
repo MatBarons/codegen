@@ -2,7 +2,7 @@ import os
 import re
 
 from .pubspec import modify_pubspec_yaml
-from utils.utils import copy_folders,write_file
+from utils.utils import copy_folders,write_file,get_flutter_data
 
 def add_redux_support(project_path,main_dart_path,is_interceptor_added):
     """Modifies the project to add Redux support."""
@@ -19,17 +19,17 @@ def add_redux_support(project_path,main_dart_path,is_interceptor_added):
 
 def add_files_to_providers(project_path,main_dart_path):
     #adding providers
-    providers_source_dir = os.path.join(os.getcwd(),"create_project","data","providers")
+    providers_source_dir = os.path.join(get_flutter_data(),"create","providers")
     providers_destination_dir = os.path.join(project_path, "lib", "providers")
     copy_folders(providers_source_dir,providers_destination_dir)
 
     #adding widgets
-    widgets_source_dir = os.path.join(os.getcwd(),"create_project","data","widgets")
+    widgets_source_dir = os.path.join(get_flutter_data(),"create","widgets")
     widgets_destination_dir = os.path.join(project_path, "lib", "widgets")
     copy_folders(widgets_source_dir,widgets_destination_dir)
 
     #adding interceptors
-    interceptors_source_dir = os.path.join(os.getcwd(),"create_project","data","interceptors")
+    interceptors_source_dir = os.path.join(get_flutter_data(),"create","interceptors")
     interceptors_destination_dir = os.path.join(project_path, "lib", "services","interceptors")
     copy_folders(interceptors_source_dir,interceptors_destination_dir)
     

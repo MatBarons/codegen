@@ -2,44 +2,44 @@ import os
 import subprocess
 import shutil
 from InquirerPy import inquirer
-from utils.utils import copy_folders,create_folders
+from utils.utils import copy_folders,create_folders,get_angular_data
 
 def run_ng_new(project_name):
     print(f"Creating Angular project: {project_name}")
     subprocess.run(["ng", "new", project_name],shell=True,check=True)
 
 def generate_sass(project_path):
-    source_dir = os.path.join(os.getcwd(),"create_project","data","sass")
+    source_dir = os.path.join(get_angular_data(),"create","sass")
     destination_dir = os.path.join(project_path,"src")
     copy_folders(source_dir,destination_dir)
     return
 
 def generate_global_state(project_path):
-    source_dir = os.path.join(os.getcwd(),"create_project","data","app-state")
+    source_dir = os.path.join(get_angular_data(),"create","app-state")
     destination_dir = os.path.join(project_path,"src","app")
     copy_folders(source_dir,destination_dir)
     return
 
 def generate_core_module(project_path):
-    source_dir = os.path.join(os.getcwd(),"create_project","data","core")
+    source_dir = os.path.join(get_angular_data(),"create","core")
     destination_dir = os.path.join(project_path,"src","app")
     copy_folders(source_dir,destination_dir)
     return
 
 def generate_shared_folder(project_path):
-    source_dir = os.path.join(os.getcwd(),"create_project","data","shared")
+    source_dir = os.path.join(get_angular_data(),"create","shared")
     destination_dir = os.path.join(project_path,"src","app")
     copy_folders(source_dir,destination_dir)
     return
 
 def change_appconfig(project_path):
-    source_file = os.path.join(os.getcwd(),"create_project","data","appconfig.ts")
+    source_file = os.path.join(get_angular_data(),"create","appconfig.ts")
     destination_dir = os.path.join(project_path,"src","app")
     shutil.move(source_file,destination_dir)
     return
 
 def add_i18n_support(project_path, languages):
-    source_dir = os.path.join(os.getcwd(),"create_project","data","i18n")
+    source_dir = os.path.join(get_angular_data(),"create","i18n")
     destination_dir = os.path.join(project_path,"src","assets")
     copy_folders(source_dir,destination_dir)
     return 

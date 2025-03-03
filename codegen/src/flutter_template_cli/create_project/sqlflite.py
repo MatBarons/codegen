@@ -2,7 +2,7 @@ import os
 import re
 import shutil
 from .pubspec import modify_pubspec_yaml
-from utils.utils import copy_folders,write_file
+from utils.utils import copy_folders,write_file,get_flutter_data
 
 
 def add_sqlflite_support(project_path,main_dart_path):
@@ -13,7 +13,7 @@ def add_sqlflite_support(project_path,main_dart_path):
 
 
 def add_files(project_path):
-    providers_source_dir = os.path.join(os.getcwd(),"create_project","data","sqlflite")
+    providers_source_dir = os.path.join(get_flutter_data(),"create","sqlflite")
     providers_destination_dir = os.path.join(project_path, "lib", "providers","sqlflite")
     copy_folders(providers_source_dir,providers_destination_dir)
 

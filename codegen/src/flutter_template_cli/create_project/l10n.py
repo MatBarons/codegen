@@ -2,7 +2,7 @@ import os
 import re
 import shutil
 
-from utils.utils import write_file
+from utils.utils import write_file, get_flutter_data
 from .pubspec import modify_pubspec_yaml
 
 def add_l10n_support(project_path, languages,main_dart_path):
@@ -18,7 +18,7 @@ def add_l10n_support(project_path, languages,main_dart_path):
         file.write("output-localization-file: app_localizations.dart\n")
     print(f"Localization configuration added to {l10n_config_path}")
 
-    data_l10n_dir = os.path.join(os.getcwd(),"create_project","data", "l10n")
+    data_l10n_dir = os.path.join(get_flutter_data(),"create", "l10n")
     l10n_dir = os.path.join(project_path, "lib", "l10n")
 
     if not os.path.exists(data_l10n_dir):

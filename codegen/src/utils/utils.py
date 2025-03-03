@@ -34,3 +34,10 @@ def write_file(match,content_to_copy):
     
     insert_position_main = match.end()
     content = content[:insert_position_main] + content_to_copy + content[insert_position_main:]
+
+
+def get_angular_data():
+    return os.path.join(os.getcwd(),"codegen","data","angular")
+
+def get_flutter_data():
+    return os.path.join(os.getcwd(),"codegen","data","flutter")
