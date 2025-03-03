@@ -1,14 +1,12 @@
 import os
 import subprocess
+import shutil
 from InquirerPy import inquirer
-
-from .i18n import add_i18n_support
-from utils.utils import copy_folders
+from utils.utils import copy_folders,create_folders
 
 def run_ng_new(project_name):
     print(f"Creating Angular project: {project_name}")
     subprocess.run(["ng", "new", project_name],shell=True,check=True)
-
 
 def generate_sass(project_path):
     source_dir = os.path.join(os.getcwd(),"create_project","data","sass")
@@ -34,6 +32,18 @@ def generate_shared_folder(project_path):
     copy_folders(source_dir,destination_dir)
     return
 
+def change_appconfig(project_path):
+    source_file = os.path.join(os.getcwd(),"create_project","data","appconfig.ts")
+    destination_dir = os.path.join(project_path,"src","app")
+    shutil.move(source_file,destination_dir)
+    return
+
+def add_i18n_support(project_path, languages):
+    source_dir = os.path.join(os.getcwd(),"create_project","data","i18n")
+    destination_dir = os.path.join(project_path,"src","assets")
+    copy_folders(source_dir,destination_dir)
+    return 
+
 def create_angular_template():
     project_name = input("Enter the project name: ")
     run_ng_new(project_name)
@@ -43,6 +53,8 @@ def create_angular_template():
     generate_global_state(project_path)
     generate_core_module(project_path)
     generate_shared_folder(project_path)
+    change_appconfig(project_path)
+    create_folders(["features"],os.path.join(project_path,"src","app"))
 
     add_i18n = inquirer.confirm(
         message="Would you like to add i18n support?", default=False
