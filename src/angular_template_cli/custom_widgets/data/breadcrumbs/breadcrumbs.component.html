@@ -1,5 +1,5 @@
-<div *transloco="let t" id="aurora-breadcrumbs">
-  <a [routerLink]="elem.url"  queryParamsHandling="merge" *ngFor="let elem of breadcrumbs(); let last=last" class="mat-body">
+<div *transloco="let t" id="breadcrumbs">
+  <a [routerLink]="elem.url" queryParamsHandling="merge" *ngFor="let elem of breadcrumbs(); let last=last" class="mat-body">
     @if (elem) {
       {{ t('breadcrumbs.'+elem.path) }}
       <span *ngIf="!last">/ </span>

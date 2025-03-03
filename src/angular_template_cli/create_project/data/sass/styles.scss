@@ -1,3 +1,4 @@
+/*
 @use '@angular/material' as mat;
 @import "base/m3-theme";
 @include mat.core();
@@ -16,9 +17,10 @@ $dark-theme: mat.define-theme((
     tertiary: $tertiary
   )
 ));
+*/
 
 html{
-  @include mat.core-theme($dark-theme);
+  /*@include mat.core-theme($dark-theme);
   @include mat.button-theme($dark-theme);
   @include mat.input-theme($dark-theme);
   @include mat.form-field-theme($dark-theme);
@@ -42,9 +44,10 @@ html{
   @include mat.chips-theme($dark-theme);
   @include mat.tooltip-theme($dark-theme);
   @include mat.autocomplete-theme($dark-theme);
+  */
 
   @media (prefers-color-scheme: light) {
-    @include mat.core-color($light-theme);
+    /*@include mat.core-color($light-theme);
     @include mat.button-color($light-theme);
     @include mat.input-color($light-theme);
     @include mat.form-field-color($light-theme);
@@ -68,8 +71,9 @@ html{
     @include mat.chips-color($light-theme);
     @include mat.tooltip-color($light-theme);
     @include mat.autocomplete-color($light-theme);
+    */
   }
-  @include mat.all-component-typographies();
+  //@include mat.all-component-typographies();
 }
 
 @import "abstract/variables";

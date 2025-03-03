@@ -1,20 +1,8 @@
 @use '_functions' as fun;
-
-$breakpoints-map: (
-  xs: 0,
-  sm: 600px,
-  md: 960px,
-  lg: 1280px,
-  xl: 1920px,
-) !default;
-
-@function breakpoint-min($name, $breakpoints: $breakpoints-map) {
-  $min: map-get($breakpoints, $name);
-  @return if($min != 0, $min, null);
-}
+@use '_variables';
 
 @mixin media-breakpoint-up($name, $breakpoints: $breakpoints-map) {
-  $min: breakpoint-min($name, $breakpoints);
+  $min: fun.breakpoint-min($name, $breakpoints);
   @if $min {
     @media (min-width: $min) {
       @content;

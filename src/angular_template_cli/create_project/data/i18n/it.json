@@ -1,0 +1,60 @@
+{
+  "button": {
+    "login": "Accedi",
+    "logout": "Esci",
+    "close": "Chiudi",
+    "remove": "Rimuovi",
+    "confirm": "Conferma",
+    "accept": "Accetta",
+    "decline": "Rifiuta",
+    "detail": "Dettaglio",
+    "cancel": "Cancella",
+    "view": "Visualizza",
+    "back": "Indietro",
+    "create": {},
+    "search": "Cerca",
+    "save": "Salva",
+    "filter": "Filtra",
+    "next": "Prosegui",
+    "edit": "Modifica",
+    "addRow": "Aggiungi Riga",
+    "copy": {
+      "text": "Copia Testo",
+      "image": "Copia Immagine"
+    },
+    "showMoreResults": "Altri risultati"
+  },
+  "locale": {
+    "it": "Italiano",
+    "en": "Inglese"
+  },
+  "aside": {
+    "home": "Home",
+    "dashboard": "Pannello di controllo"
+  },
+  "header": {
+    "profile": "Profilo",
+    "logout": "Esci",
+    "language": "Lingua",
+    "settings": "Impostazioni"
+  },
+  "error": {
+    "notFoundPage": {
+      "title": "Pagina non trovata",
+      "message": "Ci scusiamo, ma la pagina che cercavi non è stata trovata."
+    },
+    "notAllowedPage": {
+      "title": "Accesso non autorizzato",
+      "message": "Non hai i permessi per accedere a questa pagina."
+    },
+    "0": "Errore",
+    "400": "Errore 400",
+    "404": "Errore 404 - Non trovato",
+    "403": "Errore 403 - Non autorizzato",
+    "500": "Errore 500 - Errore interno al server",
+    "HttpRequestError": "Errore di comunicazione con la BlockChain",
+    "Error": "Errore",
+    "accountNotApproved": "Utente non ancora approvato"
+  },
+  "missingInformation": "Informazione non disponibile"
+}

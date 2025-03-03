@@ -1,9 +1,10 @@
-@use '@angular/material' as mat;
+//@use '@angular/material' as mat;
 
 :root {
   @each $size, $space in $spaces {
     --space-#{$size}: #{$space};
   }
+  /*
   --primary-color: #{mat.get-theme-color($dark-theme, primary)};
   --on-primary-color: #{mat.get-theme-color($dark-theme, on-primary)};
   --secondary-container-color: #{mat.get-theme-color($dark-theme, secondary-container)};
@@ -17,8 +18,10 @@
   --background-color: #{mat.get-theme-color($dark-theme, surface)};
   --outline-color: #{mat.get-theme-color($dark-theme, outline)};
   --outline-variant-color: #{mat.get-theme-color($dark-theme, outline-variant)};
+  */
 
   @include light-theme() {
+    /*
     --primary-color: #{mat.get-theme-color($light-theme, primary)};
     --on-primary-color: #{mat.get-theme-color($light-theme, on-primary)};
     --secondary-container-color: #{mat.get-theme-color($light-theme, secondary-container)};
@@ -32,6 +35,7 @@
     --background-color: #{mat.get-theme-color($light-theme, surface)};
     --outline-color: #{mat.get-theme-color($light-theme, outline)};
     --outline-variant-color: #{mat.get-theme-color($light-theme, outline-variant)};
+    */
   }
 }
 

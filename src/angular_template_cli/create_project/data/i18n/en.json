@@ -1,0 +1,60 @@
+{
+  "button": {
+    "login": "Log in",
+    "logout": "Log out",
+    "close": "Close",
+    "remove": "Remove",
+    "confirm": "Confirm",
+    "accept": "Accept",
+    "decline": "Decline",
+    "detail": "Detail",
+    "cancel": "Cancel",
+    "view": "View",
+    "back": "Back",
+    "create": {},
+    "search": "Search",
+    "save": "Save",
+    "filter": "Filter",
+    "next": "Continue",
+    "edit": "Edit",
+    "addRow": "Add Row",
+    "copy": {
+      "text": "Copy Text",
+      "image": "Copy Image"
+    },
+    "showMoreResults": "Other results"
+  },
+  "locale": {
+    "it": "Italian",
+    "en": "English"
+  },
+  "aside": {
+    "home": "Home",
+    "dashboard": "Control Panel"
+  },
+  "header": {
+    "profile": "Profile",
+    "logout": "Log out",
+    "language": "Language",
+    "settings": "Settings"
+  },
+  "error": {
+    "notFoundPage": {
+      "title": "Page not found",
+      "message": "Apologies, but the page you were looking for wasn't found."
+    },
+    "notAllowedPage": {
+      "title": "Unauthorized",
+      "message": "You are not authorized to access this page."
+    },
+    "0": "Error",
+    "400": "Error 400",
+    "404": "Error 404 - Not Found",
+    "403": "Error 403 - Unauthorized",
+    "500": "Error 500 - Internal Server Error",
+    "HttpRequestError": "Comunication error with BlockChain",
+    "Error": "Error",
+    "accountNotApproved": "Your account was not approved yet"
+  },
+  "missingInformation": "Information not provided"
+}
