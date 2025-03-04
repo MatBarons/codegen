@@ -1,8 +1,6 @@
 from InquirerPy import inquirer
-
-from src.flutter_template_cli.src.app import init_program as init_flutter
-from src.angular_template_cli.src.app import init_program as init_angular
-
+from .angular_template_cli.init_angular import init_angular
+from .flutter_template_cli.init_flutter import init_flutter
 
 def init_program():
     option = inquirer.select(

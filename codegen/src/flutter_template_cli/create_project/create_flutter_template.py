@@ -16,7 +16,7 @@ def run_flutter_create(project_name):
     print(f"Creating Flutter project: {project_name}")
     subprocess.run(["flutter", "create", project_name],shell=True,check=True)
 
-def create_flutter_project():
+def create_flutter_template():
     # Step 1: Ask for project name and create the project
     project_name = input("Enter the project name: ")
     run_flutter_create(project_name)

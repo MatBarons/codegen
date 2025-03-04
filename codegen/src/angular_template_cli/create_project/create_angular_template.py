@@ -66,4 +66,26 @@ def create_angular_template():
             validate=lambda result: len(result) > 0
         ).execute().split(',')
         add_i18n_support(project_path, languages)
+
+    design_system = inquirer.select(
+        message="Choose a design library:",
+        choices=["material", "bootstrap", "none"]
+    ).execute()
+     
+    subprocess.run(["cd", project_name],shell=True,check=True)
+    match design_system:
+        case "material":
+            subprocess.run(["npm", "install", "@angular/material"],shell=True,check=True)
+            core_dir = os.path.join(project_path,"src","app","core")
+            copy_folders(os.path.join(get_angular_data(),"components","material","error"),core_dir)
+            copy_folders(os.path.join(get_angular_data(),"components","material","loader"),core_dir)
+            copy_folders(os.path.join(get_angular_data(),"components","material","snackbar"),core_dir)
+        case "bootstrap":
+            subprocess.run(["npm", "install", "bootstrap"],shell=True,check=True)
+            core_dir = os.path.join(project_path,"src","app","core")
+            copy_folders(os.path.join(get_angular_data(),"components","bootstrap","error"),core_dir)
+            copy_folders(os.path.join(get_angular_data(),"components","bootstrap","loader"),core_dir)
+            copy_folders(os.path.join(get_angular_data(),"components","bootstrap","snackbar"),core_dir)
+            
+            
         
