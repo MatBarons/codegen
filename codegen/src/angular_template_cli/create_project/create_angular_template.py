@@ -1,7 +1,7 @@
 import os
 import subprocess
 import shutil
-from inquirer import Text,Confirm,List
+from inquirer import Confirm,List,Text,prompt
 from utils.utils import copy_folders,create_folders,get_angular_data
 
 def run_ng_new(project_name):
@@ -56,23 +56,23 @@ def create_angular_template():
     change_appconfig(project_path)
     create_folders(["features"],os.path.join(project_path,"src","app"))
 
-    add_i18n = Confirm(
+    add_i18n = prompt(Confirm(
         name='i18n-confirm',
         message="Would you like to add i18n support?", default=False
-    )
+    ))
 
     if add_i18n:
-        languages = Text(
+        languages = prompt(Text(
             name='i18n-text',
             message="Enter the language codes (e.g. es, fr) separated by commas: (en and it are automatically supported)"
-        )
+        ))
         add_i18n_support(project_path, languages)
 
-    design_system = List(
+    design_system = prompt(List(
         name='design'
         message="Choose a design library:",
         choices=["material", "bootstrap", "none"]
-    )
+    ))
      
     subprocess.run(["cd", project_name],shell=True,check=True)
     match design_system:

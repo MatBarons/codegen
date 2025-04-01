@@ -1,32 +1,16 @@
-from inquirer import Confirm,List
+from inquirer import Confirm,List,prompt
+from .generate_table import generate_table
 
-def detect_angular_bootstrap():
-    
-
-def table_add_ons():
-    with_filters = Confirm(
-            name='table-filters',
-            message="Would you like filters?", default=False
-        )
-    is_table_editable= Confirm(
-        name='table-editable',
-        message="Is the table editable?", default=False
-    )
-    if is_table_editable: 
+def detect_angular_material_bootstrap():
 
 def create_custom_widget():
-    option = List(
+    option = prompt(List(
         name='components-material',
         message="What custom component you want to create?",
         choices=["Table", "Breadcrumbs",""]
-    )
-
-    detect_angular_bootstrap()
+    ))
 
     if option == "Table":
-        table_add_ons()
+        generate_table()
 
-
-        
     if option == "Breadcrumbs":
-        
