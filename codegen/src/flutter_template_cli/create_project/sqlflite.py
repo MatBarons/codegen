@@ -1,6 +1,5 @@
 import os
 import re
-import shutil
 from .pubspec import modify_pubspec_yaml
 from utils.utils import copy_folders,write_file,get_flutter_data
 

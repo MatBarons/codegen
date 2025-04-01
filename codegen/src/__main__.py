@@ -1,12 +1,13 @@
-from InquirerPy import inquirer
+from inquirer import List
 from .angular_template_cli.init_angular import init_angular
 from .flutter_template_cli.init_flutter import init_flutter
 
 def init_program():
-    option = inquirer.select(
+    option = List(
+        name='init-project',
         message="Which framework are you using:",
         choices=["Flutter", "Angular"]
-    ).execute()
+    )
 
     if option == "Flutter":
         init_flutter()
