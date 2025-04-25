@@ -62,28 +62,27 @@ def create_angular_template():
     ))
 
     if add_i18n:
-        languages = prompt(Text(
+        languages: str = prompt(Text(
             name='i18n-text',
             message="Enter the language codes (e.g. es, fr) separated by commas: (en and it are automatically supported)"
         ))
-        add_i18n_support(project_path, languages)
+        add_i18n_support(project_path, languages.split(','))
 
     design_system = prompt(List(
-        name='design'
+        name='design',
         message="Choose a design library:",
         choices=["material", "bootstrap", "none"]
     ))
-     
-    subprocess.run(["cd", project_name],shell=True,check=True)
+    
     match design_system:
         case "material":
-            subprocess.run(["npm", "install", "@angular/material"],shell=True,check=True)
+            subprocess.run(["npm", "install", "@angular/material"],shell=True,check=True,cwd=project_path)
             core_dir = os.path.join(project_path,"src","app","core")
             copy_folders(os.path.join(get_angular_data(),"components","material","error"),core_dir)
             copy_folders(os.path.join(get_angular_data(),"components","material","loader"),core_dir)
             copy_folders(os.path.join(get_angular_data(),"components","material","snackbar"),core_dir)
         case "bootstrap":
-            subprocess.run(["npm", "install", "bootstrap"],shell=True,check=True)
+            subprocess.run(["npm", "install", "bootstrap"],shell=True,check=True,cwd=project_path)
             core_dir = os.path.join(project_path,"src","app","core")
             copy_folders(os.path.join(get_angular_data(),"components","bootstrap","error"),core_dir)
             copy_folders(os.path.join(get_angular_data(),"components","bootstrap","loader"),core_dir)

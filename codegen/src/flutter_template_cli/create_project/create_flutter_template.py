@@ -59,12 +59,11 @@ def create_flutter_template():
     ))
 
     if add_l10n:
-        languages = prompt(Text(
+        languages: str = prompt(Text(
             name='languages',
-            message="Enter the language codes (e.g. en, es, fr) separated by commas: (en and it are automatically supported)",
-            validate=lambda result: len(result) > 0
+            message="Enter the language codes (e.g. en, es, fr) separated by commas: (en and it are automatically supported)"
         ))
-        add_l10n_support(project_path, languages,main_dart_path)
+        add_l10n_support(project_path, languages.split(','),main_dart_path)
 
     # Step 4: Ask if sqlite (sqflite) should be added
     add_sqlite = prompt(Confirm(
