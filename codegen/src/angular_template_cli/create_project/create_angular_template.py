@@ -4,10 +4,6 @@ import shutil
 from inquirer import Confirm,List,Text,prompt
 from utils.utils import copy_folders,create_folders,get_angular_data
 
-def run_ng_new(project_name):
-    print(f"Creating Angular project: {project_name}")
-    subprocess.run(["ng", "new", project_name],shell=True,check=True)
-
 def generate_sass(project_path):
     source_dir = os.path.join(get_angular_data(),"create","sass")
     destination_dir = os.path.join(project_path,"src")
@@ -46,7 +42,8 @@ def add_i18n_support(project_path, languages):
 
 def create_angular_template():
     project_name = input("Enter the project name: ")
-    run_ng_new(project_name)
+    print(f"Creating Angular project: {project_name}")
+    subprocess.run(["ng", "new", project_name],shell=True,check=True)
     
     project_path = os.path.join(os.getcwd(), project_name)
     generate_sass(project_path)
