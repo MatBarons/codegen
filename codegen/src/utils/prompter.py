@@ -1,5 +1,5 @@
 from inquirer import prompt,Text,List,Checkbox,Confirm,Path
-from random import randbytes
+
 def confirm(message):
     return prompt(Confirm(message=message,default=False))
 
@@ -12,7 +12,7 @@ def choose(message:str,choices:list,multiple:bool):
     else:
         return prompt(List(message=message,choices=choices))
 
-def path(message:str):
+def directory(message:str):
     return prompt(Path(message=message,path_type=Path.DIRECTORY))
     
     
