@@ -2,7 +2,7 @@ import os
 import re
 
 from .pubspec import modify_pubspec_yaml
-from utils.utils import copy_folders,write_file,get_flutter_data
+from codegen.utils.utils import copy_folders,write_file,get_flutter_data
 
 def add_redux_support(project_path,main_dart_path,is_interceptor_added):
     """Modifies the project to add Redux support."""

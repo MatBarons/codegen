@@ -2,7 +2,7 @@ import os
 import re
 import shutil
 
-from utils.utils import write_file, get_flutter_data
+from codegen.utils.utils import write_file, get_flutter_data
 from .pubspec import modify_pubspec_yaml
 
 def add_l10n_support(project_path, languages,main_dart_path):

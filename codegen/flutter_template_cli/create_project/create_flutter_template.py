@@ -2,7 +2,7 @@ import subprocess
 import os
 from inquirer import Text,Confirm,List,prompt
 
-from utils.utils import create_folders
+from codegen.utils.utils import create_folders
 
 from .http_interceptor import add_http_interceptor_support
 from .l10n import add_l10n_support

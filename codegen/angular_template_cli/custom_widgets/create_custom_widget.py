@@ -1,6 +1,6 @@
 from os import path,getcwd
 from json import load
-from utils.prompter import choose,directory,question
+from codegen.utils.prompter import choose,directory,question
 from .generate_table import generate_table
 from .generate_breadcrumbs import generate_breadcrumbs
 

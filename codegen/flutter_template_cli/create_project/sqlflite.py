@@ -1,7 +1,7 @@
 import os
 import re
 from .pubspec import modify_pubspec_yaml
-from utils.utils import copy_folders,write_file,get_flutter_data
+from codegen.utils.utils import copy_folders,write_file,get_flutter_data
 
 
 def add_sqlflite_support(project_path,main_dart_path):

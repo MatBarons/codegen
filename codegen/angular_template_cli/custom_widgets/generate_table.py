@@ -1,6 +1,6 @@
 import os
 from inquirer import Confirm,Text,Checkbox,Path,prompt
-from utils.utils import copy_folders,create_folders,get_angular_data
+from codegen.utils.utils import copy_folders,create_folders,get_angular_data
 
 def add_filters(names: list,component_directory):
     with_filters = prompt(Confirm(
