@@ -58,7 +58,7 @@ import 'widgets/loader.dart';"""
 """
     main_function_pattern = r"void\s+main\s*\(\s*\)\s+async\s*\{"
     main_function_match = re.search(main_function_pattern,content)
-    write_file(main_function_match,main_function_redux)
+    content = write_file(main_function_match,main_function_redux,content)
     
     #adding interceptor widgets
     interceptor_widgets = """
@@ -67,7 +67,7 @@ import 'widgets/loader.dart';"""
 """
     stack_pattern = r"Stack\s*\(\s*children\s*:\s*\["
     stack_match = re.search(stack_pattern, content)
-    write_file(stack_match,interceptor_widgets)
+    content = write_file(stack_match,interceptor_widgets,content)
 
 
     if redux_imports.strip() not in content:

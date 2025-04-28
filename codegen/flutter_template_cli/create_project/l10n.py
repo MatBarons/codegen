@@ -118,7 +118,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';\n
     """
     delegates_pattern = r"MaterialApp\s*\("
     delegates_match = re.search(delegates_pattern,content, re.DOTALL)
-    write_file(delegates_match,delegates)
+    content = write_file(delegates_match,delegates,content)
     
     languages.append('en')
     languages.append('it')

@@ -31,7 +31,7 @@ import 'providers/sqlflite/database_helper.dart';
 
     main_function_pattern = r"void\s+main\s*\(\s*\)\s+async\s*\{"
     main_function_match = re.search(main_function_pattern,content)
-    write_file(main_function_match,sql_lite_main)
+    content = write_file(main_function_match,sql_lite_main,content)
 
     if sqlflite_imports.strip() not in content:
         content = sqlflite_imports.strip() + content

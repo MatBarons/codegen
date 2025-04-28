@@ -1,7 +1,8 @@
 from os import path,getcwd
 from subprocess import run
+from re import search
 from shutil import copy2
-from codegen.utils.utils import copy_folders,create_folders,get_angular_data
+from codegen.utils.utils import copy_folders,create_folders,get_angular_data,write_file
 from codegen.utils.prompter import question,choose
 
 def generate_sass(project_path):
@@ -28,10 +29,18 @@ def generate_shared_folder(project_path):
     copy_folders(source_dir,path.join(destination_dir,"shared"))
     return
 
-def change_appconfig(project_path):
-    source_file = path.join(get_angular_data(),"create","appconfig.ts")
+def change_appconfig(project_path,project_name):
+    source_file = path.join(get_angular_data(),"create","app.config.ts")
     destination_dir = path.join(project_path,"src","app")
     copy2(source_file,destination_dir)
+    with open(path.join(destination_dir,"app.config.ts"),"r") as f:
+        content = f.read()
+    pattern = r"[[name]]"
+    match = search(pattern,content)
+    content = write_file(match,project_name,content)
+    content.replace("[[name]]", '')
+    with open(path.join(destination_dir,"app.config.ts"), "w") as file:
+        file.write(content)
     return
 
 def add_i18n_support(project_path, languages):
@@ -50,11 +59,10 @@ def create_angular_template():
     generate_global_state(project_path)
     generate_core_module(project_path)
     generate_shared_folder(project_path)
-    change_appconfig(project_path)
+    change_appconfig(project_path,project_name)
     create_folders(["features"],path.join(project_path,"src","app"))
 
     add_i18n = question("Would you like to add i18n support?")
-
     if add_i18n:
         languages: str = question("Enter the language codes (e.g. es, fr) separated by commas: (en and it are automatically supported)")
         add_i18n_support(project_path, languages.split(','))
