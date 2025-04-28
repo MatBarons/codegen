@@ -1,11 +1,7 @@
-from inquirer import List,prompt
+from codegen.utils.prompter import choose
 
 def create_custom_widget():
-    option = prompt(List(
-        name='flutter-widgets',
-        message="What do you want to do:",
-        choices=["Generate table", "Generate navigation bar"]
-    ))
+    option = choose("What do you want to do:",["Generate table", "Generate navigation bar"],False)
 
     if option == "Generate table":
         print('qui')

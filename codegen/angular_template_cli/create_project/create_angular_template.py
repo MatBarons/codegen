@@ -1,43 +1,43 @@
 from os import path,getcwd
 from subprocess import run
-from shutil import move
+from shutil import copy2
 from codegen.utils.utils import copy_folders,create_folders,get_angular_data
 from codegen.utils.prompter import question,choose
 
 def generate_sass(project_path):
     source_dir = path.join(get_angular_data(),"create","sass")
     destination_dir = path.join(project_path,"src")
-    copy_folders(source_dir,destination_dir)
+    copy_folders(source_dir,path.join(destination_dir,"sass"))
     return
 
 def generate_global_state(project_path):
     source_dir = path.join(get_angular_data(),"create","app-state")
     destination_dir = path.join(project_path,"src","app")
-    copy_folders(source_dir,destination_dir)
+    copy_folders(source_dir,path.join(destination_dir,"app-state"))
     return
 
 def generate_core_module(project_path):
     source_dir = path.join(get_angular_data(),"create","core")
     destination_dir = path.join(project_path,"src","app")
-    copy_folders(source_dir,destination_dir)
+    copy_folders(source_dir,path.join(destination_dir,"core"))
     return
 
 def generate_shared_folder(project_path):
     source_dir = path.join(get_angular_data(),"create","shared")
     destination_dir = path.join(project_path,"src","app")
-    copy_folders(source_dir,destination_dir)
+    copy_folders(source_dir,path.join(destination_dir,"shared"))
     return
 
 def change_appconfig(project_path):
     source_file = path.join(get_angular_data(),"create","appconfig.ts")
     destination_dir = path.join(project_path,"src","app")
-    move(source_file,destination_dir)
+    copy2(source_file,destination_dir)
     return
 
 def add_i18n_support(project_path, languages):
     source_dir = path.join(get_angular_data(),"create","i18n")
     destination_dir = path.join(project_path,"src","assets")
-    copy_folders(source_dir,destination_dir)
+    copy_folders(source_dir,path.join(destination_dir,"i18n"))
     return 
 
 def create_angular_template():
@@ -63,7 +63,7 @@ def create_angular_template():
     core_dir = path.join(project_path,"src","app","core")
     copy_folders(path.join(get_angular_data(),"components",design_system,"error"),core_dir)
     copy_folders(path.join(get_angular_data(),"components",design_system,"loader"),core_dir)
-    copy_folders(path.join(get_angular_data(),"components",design_system,"snackbar"),core_dir)
+    copy_folders(path.join(get_angular_data(),"components",design_system,"snackbars"),core_dir)
     match design_system:
         case "material":
             run(["npm", "install", "@angular/material"],shell=True,check=True,cwd=project_path) 

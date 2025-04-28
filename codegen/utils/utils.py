@@ -14,7 +14,8 @@ def create_folders(folders_to_create,project_path):
         create_gitkeep(folder_path)
 
 def copy_folders(source_dir,destination_dir):
-    os.makedirs(destination_dir, exist_ok=True)
+    if not os.path.exists(destination_dir):
+        os.makedirs(destination_dir, exist_ok=True)
     
     # Copy each item (file or subfolder) from 'source_dir' to 'destination_dir'
     for item in os.listdir(source_dir):
@@ -37,7 +38,7 @@ def write_file(match,content_to_copy):
 
 
 def get_angular_data():
-    return os.path.join(os.getcwd(),"codegen","data","angular")
+    return os.path.join(os.getcwd(),"data","angular")
 
 def get_flutter_data():
-    return os.path.join(os.getcwd(),"codegen","data","flutter")
+    return os.path.join(os.getcwd(),"data","flutter")

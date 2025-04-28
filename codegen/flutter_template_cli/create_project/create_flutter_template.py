@@ -1,7 +1,6 @@
 import subprocess
 import os
-from inquirer import Text,Confirm,List,prompt
-
+from codegen.utils.prompter import choose,confirm,question
 from codegen.utils.utils import create_folders
 
 from .http_interceptor import add_http_interceptor_support
@@ -35,51 +34,32 @@ def create_flutter_template():
     create_folders(folders,project_path)
     setup_main(main_dart_path)
 
-    add_http_interceptor = prompt(Confirm(
-        name='interceptors',
-        message="Would you like to add HTTP interceptor support?", default=False
-    ))
+    add_http_interceptor = confirm("Would you like to add HTTP interceptor support?")
 
     if add_http_interceptor:
         add_http_interceptor_support(project_path)
 
     # Step 2: Ask if Redux should be added
-    add_redux = prompt(Confirm(
-        name='Redux',
-        message="Would you like to add Redux support?", default=False
-    ))
+    add_redux = confirm("Would you like to add Redux support?")
 
     if add_redux:
         add_redux_support(project_path,main_dart_path,add_http_interceptor)
 
     # Step 3: Ask if l10n should be added
-    add_l10n = prompt(Confirm(
-        name='l10n',
-        message="Would you like to add localization (l10n) support?", default=False
-    ))
+    add_l10n = confirm("Would you like to add localization (l10n) support?")
 
     if add_l10n:
-        languages: str = prompt(Text(
-            name='languages',
-            message="Enter the language codes (e.g. en, es, fr) separated by commas: (en and it are automatically supported)"
-        ))
+        languages: str = question("Enter the language codes (e.g. en, es, fr) separated by commas: (en and it are automatically supported)")
         add_l10n_support(project_path, languages.split(','),main_dart_path)
 
     # Step 4: Ask if sqlite (sqflite) should be added
-    add_sqlite = prompt(Confirm(
-        name='sqlite',
-        message="Would you like to add SQLite support (sqflite package)?", default=False
-    ))
+    add_sqlite = confirm("Would you like to add SQLite support (sqflite package)?")
 
     if add_sqlite:
         add_sqlflite_support(project_path,main_dart_path)
 
     # Step 5: Ask for login type
-    login_type = prompt(List(
-        name='login-type',
-        message="Choose a login method:",
-        choices=["keycloak", "azure", "cognito", "magic", "none"],
-    ))
+    login_type = choose("Choose a login method:",["keycloak", "azure", "cognito", "magic", "none"],False)
 
     #if login_type != "none":
         #add_login_support(project_path, login_type,main_dart_path)

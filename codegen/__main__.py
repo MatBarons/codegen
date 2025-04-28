@@ -1,14 +1,10 @@
-from inquirer import List,prompt
 from .angular_template_cli.init_angular import init_angular
 from .flutter_template_cli.init_flutter import init_flutter
+from codegen.utils.prompter import choose
 
 def init_program():
-    option = prompt(List(
-        name='init-project',
-        message="Which framework are you using:",
-        choices=["Flutter", "Angular"]
-    ))
-
+    option = choose("Which framework are you using:",["Flutter", "Angular"],False)
+    print(option)
     if option == "Flutter":
         init_flutter()
     if option == "Angular":
