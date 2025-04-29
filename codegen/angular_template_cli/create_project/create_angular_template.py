@@ -28,9 +28,6 @@ def generate_sass():
     source_dir = path.join(get_angular_data(),"create","sass")
     destination_dir = path.join(project_path,"src","sass")
     copy_folders(source_dir,destination_dir,["styles.scss"])
-    styles_source_dir = path.join(get_angular_data(),"create","sass","styles.scss")
-    styles_destination_dir = path.join(project_path,"src")
-    copy2(styles_source_dir,styles_destination_dir)
     return
 
 def generate_global_state():
@@ -91,7 +88,7 @@ def add_i18n_support(languages):
 
 
 def create_angular_template():
-    project_name = question("Enter the project name: ")
+    project_name = input("Enter the project name: ")
     print(f"Creating Angular project: {project_name}")
     run(["ng", "new", project_name ,"--skip-install"],shell=True,check=True)
     project_path = path.join(getcwd(), project_name)
@@ -116,6 +113,9 @@ def create_angular_template():
     match design_system:
         case "material":
             add_packages_to_package_json(["@angular/material"])
+            styles_source_dir = path.join(get_angular_data(),"create","sass","styles.scss")
+            styles_destination_dir = path.join(project_path,"src")
+            copy2(styles_source_dir,styles_destination_dir)
         case "bootstrap":
             add_packages_to_package_json(["bootstrap"])
  

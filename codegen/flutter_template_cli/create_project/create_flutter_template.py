@@ -1,5 +1,6 @@
-import subprocess
-import os
+from subprocess import run
+from os import path,getcwd
+
 from codegen.utils.config import Config
 from codegen.utils.prompter import choose,confirm,question
 from codegen.utils.utils import create_folders
@@ -14,7 +15,7 @@ from .sqlflite import add_sqlflite_support
 def run_flutter_create(project_name):
     #Creates a new Flutter project using 'flutter create'.
     print(f"Creating Flutter project: {project_name}")
-    subprocess.run(["flutter", "create", project_name],shell=True,check=True)
+    run(["flutter", "create", project_name],shell=True,check=True)
 
 def create_flutter_template():
     # Step 1: Ask for project name and create the project
@@ -22,7 +23,7 @@ def create_flutter_template():
     run_flutter_create(project_name)
 
     # Define project path for modification
-    project_path = os.path.join(os.getcwd(), project_name)
+    project_path = path.join(getcwd(), project_name)
     Config().set("project_path",project_path)
     # Add folders
     folders = [
