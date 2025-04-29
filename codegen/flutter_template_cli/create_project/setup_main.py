@@ -1,4 +1,10 @@
-def setup_main(main_dart_path):
+from os import path
+
+from codegen.utils.config import Config
+
+def setup_main():
+     project_path = Config().get("project_path")
+     main_dart_path = path.join(project_path, "lib", "main.dart")
      
      with open(main_dart_path, "w") as file:
         

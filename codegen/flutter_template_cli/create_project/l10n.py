@@ -1,55 +1,58 @@
-import os
-import re
-import shutil
-
+from os import path
+from shutil import copytree,rmtree
+from re import search,DOTALL
+from codegen.utils.config import Config
 from codegen.utils.utils import write_file, get_flutter_data
 from .pubspec import modify_pubspec_yaml
 
-def add_l10n_support(project_path, languages,main_dart_path):
-    """Modifies the project to add l10n (localization) support."""
+def add_l10n_support(languages):
 
+    project_path = Config().get("project_path")
+    main_dart_path = path.join(project_path, "lib", "main.dart")
+    """Modifies the project to add l10n (localization) support."""
 
     add_generate_flag(project_path)
     # Create l10n.yaml configuration file
-    l10n_config_path = os.path.join(project_path, "l10n.yaml")
+    l10n_config_path = path.join(project_path, "l10n.yaml")
     with open(l10n_config_path, "w") as file:
         file.write("arb-dir: lib/l10n\n")
         file.write("template-arb-file: app_en.arb\n")
         file.write("output-localization-file: app_localizations.dart\n")
     print(f"Localization configuration added to {l10n_config_path}")
 
-    data_l10n_dir = os.path.join(get_flutter_data(),"create", "l10n")
-    l10n_dir = os.path.join(project_path, "lib", "l10n")
+    data_l10n_dir = path.join(get_flutter_data(),"create", "l10n")
+    l10n_dir = path.join(project_path, "lib", "l10n")
 
-    if not os.path.exists(data_l10n_dir):
+    if not path.exists(data_l10n_dir):
         print(f"Error: Source l10n folder '{data_l10n_dir}' does not exist.")
         return
 
     # Remove the target folder if it exists to ensure a clean copy
-    if os.path.exists(l10n_dir):
-        shutil.rmtree(l10n_dir)
+    if path.exists(l10n_dir):
+        rmtree(l10n_dir)
 
     # Copy the l10n folder
-    shutil.copytree(data_l10n_dir, l10n_dir)
+    copytree(data_l10n_dir, l10n_dir)
 
     
     for lang in languages:
         lang_code = lang.strip()
         if not (lang_code == 'en' or lang_code == 'it'):
-            arb_file_path = os.path.join(l10n_dir, f"app_{lang_code}.arb")
+            arb_file_path = path.join(l10n_dir, f"app_{lang_code}.arb")
             with open(arb_file_path, "w") as file:
                 file.write('{\n  "@@locale": "' + lang_code + '"\n}\n')
             print(f"Added localization file: {arb_file_path}")
 
-    modify_pubspec_yaml(project_path, "intl")
-    modify_pubspec_yaml(project_path, """flutter_localizations:
+    modify_pubspec_yaml("intl")
+    modify_pubspec_yaml("""flutter_localizations:
         sdk: flutter #""")
     add_l10n_to_main(languages,main_dart_path)
 
-def add_generate_flag(project_path):
-    pubspec_path = os.path.join(project_path, "pubspec.yaml")
+def add_generate_flag():
+    project_path = Config().get("project_path")
+    pubspec_path = path.join(project_path, "pubspec.yaml")
 
-    if not os.path.exists(pubspec_path):
+    if not path.exists(pubspec_path):
         raise FileNotFoundError(f"pubspec.yaml not found at {pubspec_path}")
 
     # Read the existing content of pubspec.yaml
@@ -97,8 +100,9 @@ def add_generate_flag(project_path):
 
     print(f"'generate: true' flag added successfully to {pubspec_path}")
 
-
-def add_l10n_to_main(languages,main_dart_path):
+def add_l10n_to_main(languages):
+    project_path = Config().get("project_path")
+    main_dart_path = path.join(project_path, "lib", "main.dart")
     """Modifies main.dart file to add l10n support."""
     with open(main_dart_path, "r") as file:
         content = file.read()
@@ -117,7 +121,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';\n
             ],
     """
     delegates_pattern = r"MaterialApp\s*\("
-    delegates_match = re.search(delegates_pattern,content, re.DOTALL)
+    delegates_match = search(delegates_pattern,content, DOTALL)
     content = write_file(delegates_match,delegates,content)
     
     languages.append('en')
@@ -131,7 +135,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';\n
     material_app_pattern = r"(MaterialApp\s*\(.*?)(supportedLocales\s*:.*?,)?"
     
     # Search for the MaterialApp widget in main.dart
-    match = re.search(material_app_pattern, content, re.DOTALL)
+    match = search(material_app_pattern, content, DOTALL)
 
     if match:
         # Insert supportedLocales inside the MaterialApp if not already present

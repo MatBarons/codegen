@@ -1,10 +1,13 @@
-import os
+from os import path
 
-def modify_pubspec_yaml(project_path, package_name):
+from codegen.utils.config import Config
+
+def modify_pubspec_yaml(package_name):
+    project_path = Config().get("project_path")
     """Adds a package to the dependencies section of pubspec.yaml if it exists, 
     or creates the dependencies section if it doesn't."""
     
-    pubspec_path = os.path.join(project_path, "pubspec.yaml")
+    pubspec_path = path.join(project_path, "pubspec.yaml")
     
     # Read the existing content of pubspec.yaml
     with open(pubspec_path, "r") as file:

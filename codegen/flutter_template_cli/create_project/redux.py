@@ -1,42 +1,46 @@
-import os
-import re
+from re import search
+from os import makedirs,path
+from codegen.utils.config import Config
 
 from .pubspec import modify_pubspec_yaml
 from codegen.utils.utils import copy_folders,write_file,get_flutter_data
 
-def add_redux_support(project_path,main_dart_path,is_interceptor_added):
+def add_redux_support(is_interceptor_added):
+
+    project_path = Config().get("project_path")
+
     """Modifies the project to add Redux support."""
 
-    os.makedirs(os.path.join(project_path, "lib", "providers"), exist_ok=True)
+    makedirs(path.join(project_path, "lib", "providers"), exist_ok=True)
 
     # Add redux and flutter_redux to pubspec.yaml
-    modify_pubspec_yaml(project_path, "flutter_redux")
+    modify_pubspec_yaml("flutter_redux")
     print("Added Redux support")
     if is_interceptor_added:
-        add_files_to_providers(project_path,main_dart_path)
+        add_files_to_providers()
 
-
-
-def add_files_to_providers(project_path,main_dart_path):
+def add_files_to_providers():
+    project_path = Config().get("project_path")
     #adding providers
-    providers_source_dir = os.path.join(get_flutter_data(),"create","providers")
-    providers_destination_dir = os.path.join(project_path, "lib", "providers")
+    providers_source_dir = path.join(get_flutter_data(),"create","providers")
+    providers_destination_dir = path.join(project_path, "lib", "providers")
     copy_folders(providers_source_dir,providers_destination_dir)
 
     #adding widgets
-    widgets_source_dir = os.path.join(get_flutter_data(),"create","widgets")
-    widgets_destination_dir = os.path.join(project_path, "lib", "widgets")
+    widgets_source_dir = path.join(get_flutter_data(),"create","widgets")
+    widgets_destination_dir = path.join(project_path, "lib", "widgets")
     copy_folders(widgets_source_dir,widgets_destination_dir)
 
     #adding interceptors
-    interceptors_source_dir = os.path.join(get_flutter_data(),"create","interceptors")
-    interceptors_destination_dir = os.path.join(project_path, "lib", "services","interceptors")
+    interceptors_source_dir = path.join(get_flutter_data(),"create","interceptors")
+    interceptors_destination_dir = path.join(project_path, "lib", "services","interceptors")
     copy_folders(interceptors_source_dir,interceptors_destination_dir)
     
-    add_redux_to_main(main_dart_path)
+    add_redux_to_main()
         
-def add_redux_to_main(main_dart_path):
-    
+def add_redux_to_main():
+    project_path = Config().get("project_path")
+    main_dart_path = path.join(project_path, "lib", "main.dart")
     with open(main_dart_path, "r") as file:
         content = file.read()
     
@@ -57,7 +61,7 @@ import 'widgets/loader.dart';"""
     );
 """
     main_function_pattern = r"void\s+main\s*\(\s*\)\s+async\s*\{"
-    main_function_match = re.search(main_function_pattern,content)
+    main_function_match = search(main_function_pattern,content)
     content = write_file(main_function_match,main_function_redux,content)
     
     #adding interceptor widgets
@@ -66,7 +70,7 @@ import 'widgets/loader.dart';"""
                     const ErrorDialog(),
 """
     stack_pattern = r"Stack\s*\(\s*children\s*:\s*\["
-    stack_match = re.search(stack_pattern, content)
+    stack_match = search(stack_pattern, content)
     content = write_file(stack_match,interceptor_widgets,content)
 
 

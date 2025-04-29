@@ -4,3 +4,4 @@ dist/*
 **/__pychache__/
 *.pyc
 *.pyo
+poetry.lock
