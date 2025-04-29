@@ -9,7 +9,7 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideStore(),
     provideEffects(SnackbarsEffects.SnackbarsEffects)
-    provideState({ name: '[[name]]', reducer: appReducer }),
+    provideState({ name: 'project_name', reducer: appReducer }),
     provideNgxWebstorage(
         withNgxWebstorageConfig({ separator: ':', caseSensitive: true }),
         withLocalStorage(),

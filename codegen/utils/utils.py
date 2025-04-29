@@ -13,20 +13,45 @@ def create_folders(folders_to_create,project_path):
         print(f"Created folder: {folder_path}")
         create_gitkeep(folder_path)
 
-def copy_folders(source_dir,destination_dir):
-    if not os.path.exists(destination_dir):
-        os.makedirs(destination_dir, exist_ok=True)
-    
-    # Copy each item (file or subfolder) from 'source_dir' to 'destination_dir'
-    for item in os.listdir(source_dir):
-        source_item = os.path.join(source_dir, item)
-        destination_item = os.path.join(destination_dir, item)
-        
-        if os.path.isdir(source_item):
-            shutil.copytree(source_item, destination_item, dirs_exist_ok=True)
-        else:
-            shutil.copy2(source_item, destination_item)
-    return
+def copy_folders(source_dir,destination_dir,exclude=None):
+    if exclude is None:
+        exclude = []
+
+    source_dir = os.path.abspath(source_dir)
+    destination_dir = os.path.abspath(destination_dir)
+
+    folder_name = os.path.basename(source_dir)
+
+    # Avoid duplicating the folder if destination already ends with it
+    if not os.path.basename(destination_dir) == folder_name:
+        target_path = os.path.join(destination_dir, folder_name)
+    else:
+        target_path = destination_dir
+
+    # Prevent self-copy
+    if os.path.normpath(source_dir) == os.path.normpath(target_path):
+        print(f"Skipping: source and destination are the same: {source_dir}")
+        return
+
+    if not os.path.exists(target_path):
+        shutil.copytree(
+            source_dir,
+            target_path,
+            ignore=shutil.ignore_patterns(*exclude)
+        )
+    else:
+        for item in os.listdir(source_dir):
+            if item in exclude:
+                continue
+
+            s_item = os.path.join(source_dir, item)
+            d_item = os.path.join(target_path, item)
+
+            if os.path.isdir(s_item):
+                copy_folders(s_item, target_path, exclude)
+            else:
+                os.makedirs(target_path, exist_ok=True)
+                shutil.copy2(s_item, d_item)
 
 def write_file(match,content_to_copy,content):
     if not match:

@@ -5,7 +5,7 @@ from .generate_table import generate_table
 from .generate_breadcrumbs import generate_breadcrumbs
 
 def detect_angular_material_bootstrap():
-    with open(path.join(getcwd(),"src","app","package.json"), "r") as file:
+    with open(path.join(getcwd(),"package.json"), "r") as file:
         data: dict = load(file)
 
     all_packages = {**data.get("dependencies", {}), **data.get("devDependencies", {})}
