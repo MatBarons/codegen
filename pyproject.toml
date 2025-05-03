@@ -6,8 +6,9 @@ authors = [
     {name = "Matteo Barone",email = "matteo.barone1199@gmail.com"}
 ]
 readme = "README.md"
-requires-python = ">=3.13"
+requires-python = ">=3.13,<4.0"
 dependencies = [
+    "inquirerpy (>=0.3.4,<0.4.0)"
 ]
 
 
