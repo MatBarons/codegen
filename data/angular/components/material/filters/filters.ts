@@ -1,9 +1,10 @@
-constructor(
-    private store: Store<AppState>,
-    private destroyRef: DestroyRef,
-    private component_nameService: component_nameService,
-    private route: ActivatedRoute,
-)
+import { AppState } from '../../../app-state/app-reducers/app.reducers';
+import { Store } from '@ngrx/store';
+import { FormControl, FormGroup } from '@angular/forms';
+import { distinctUntilChanged, Observable } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { component_nameSelectors } from './component_name-state/selectors';
+import { component_nameActions } from './component_name-state/actions';
 
 filters$: Observable<component_nameFilters> = this.store.select(
     component_nameSelectors.selectcomponent_nameFilters
@@ -17,6 +18,15 @@ filterForm: FormGroup<component_nameFiltersForm> = new FormGroup<component_nameF
         loan: new FormControl(),
     }
 );
+
+constructor(
+    private store: Store<AppState>,
+    private destroyRef: DestroyRef,
+    private component_nameService: component_nameService,
+    private route: ActivatedRoute,
+)
+
+
 
 ngOnInit() {
     this.observePageState();
@@ -32,6 +42,6 @@ observePageState() {
 
 setFilter() {
     this.store.dispatch(
-        ArtworkActions.storecomponent_nameFilters({ s: this.filterForm.value })
+        component_nameActions.storecomponent_nameFilters({ s: this.filterForm.value })
     );
 }

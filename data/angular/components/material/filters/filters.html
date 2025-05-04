@@ -1,0 +1,65 @@
+<form [formGroup]="filterForm" (ngSubmit)="setFilter()">
+    <mat-form-field subscriptSizing="dynamic" appearance="outline">
+      <mat-label>{{ t("artworks.artworks.name.label") }}</mat-label>
+      <input
+        matInput
+        type="text"
+        id="title"
+        name="title"
+        formControlName="title"
+      />
+    </mat-form-field>
+    <mat-form-field subscriptSizing="dynamic" appearance="outline">
+      <mat-label>{{ t("artworks.artworks.maker.label") }}</mat-label>
+      <input
+        matInput
+        type="text"
+        id="maker"
+        name="maker"
+        formControlName="maker"
+      />
+    </mat-form-field>
+    <mat-form-field
+      subscriptSizing="dynamic"
+      appearance="outline"
+      class="date"
+    >
+      <mat-label>{{ t("artworks.artworks.date.label") }}</mat-label>
+      <input
+        matInput
+        [matDatepicker]="picker"
+        formControlName="creationDate"
+      />
+      <mat-datepicker-toggle
+        matIconSuffix
+        [for]="picker"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field subscriptSizing="dynamic" appearance="outline">
+      <mat-label>{{ t("artworks.artworks.collections.label") }}</mat-label>
+      <mat-select
+        id="collections"
+        formControlName="collections"
+        multiple
+        [compareWith]="compareCollections"
+      >
+        @for(col of collections; track col['collectionCode']){
+        <mat-option [value]="col">{{ col["name"] }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field subscriptSizing="dynamic" appearance="outline">
+      <mat-label class="mat-body-2">{{
+        t("artworks.artworks.ownershipStatus.label")
+      }}</mat-label>
+      <mat-select id="artworkOwnership" formControlName="loan">
+        <mat-option></mat-option>
+        <mat-option
+          *ngFor="let status of ArtworkOwnershipStatus"
+          [value]="status"
+          >{{ t("artworks.detail.ownershipStatus." + status) }}</mat-option
+        >
+      </mat-select>
+    </mat-form-field>
+  </form>

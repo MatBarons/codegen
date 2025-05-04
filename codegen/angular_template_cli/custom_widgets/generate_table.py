@@ -1,28 +1,8 @@
 from os import path,walk,makedirs
 from re import fullmatch
 from codegen.utils.config import Config
-from codegen.utils.utils import copy_folders,get_angular_data
+from codegen.utils.utils import copy_folders,get_angular_data,create_folders,get_relative_path
 from codegen.utils.prompter import confirm,choose,question,browse_dirs
-
-def get_relative_path(target_path, base_path):
-    """
-    Compute the relative path from one file (base) to another (target).
-
-    Args:
-        target_path (str): The destination file path.
-        base_path (str): The starting point file path.
-
-    Returns:
-        str: Relative path from base_path to target_path.
-    """
-    return path.relpath(target_path, start=path.dirname(path.abspath(base_path)))
-
-def locate_file_in_project(filename):
-    project_path = Config().get("project_root")
-    for root, _, files in walk(project_path):
-        if filename in files:
-            return path.abspath(path.join(root, filename))
-    return None
 
 def is_typescript_type(type_str: str) -> bool:
     type_str = type_str.strip()
@@ -78,9 +58,9 @@ def create_interface(filename:str,data_structure: dict):
     filepath = f"{path.join(models_path,filename)}.model.ts"
     with open(filepath, "w") as file:
         file.write(f"export interface {filename}")
-        file.write("{")
-        for key,value in data_structure:
-            file.write(f"{key}:{value}")
+        file.write("{\n")
+        for key,value in data_structure.items():
+            file.write(f"{key}:{value},\n")
         file.write("}")
     return filepath
 
@@ -89,9 +69,9 @@ def create_enum(filename: str, data_structure: list):
     filepath=f"{path.join(models_path,filename)}.model.ts"
     with open(filepath, "w") as file:
         file.write(f"export enum {filename}")
-        file.write("{")
+        file.write("{\n")
         for index,key in enumerate(data_structure):
-            file.write(f"{key}={index}")
+            file.write(f"{key}={index},\n")
         file.write("}")
         pass
     return filepath
@@ -109,9 +89,9 @@ def parse_data_structure(filename,data_structure_answer: str):
                 add_imports(filename,new_enum)
             if answer is "new structure":
                 new_data_structure_answer: str = question(message=f"Please define the {d[1]} type the same way you wrote the previous data structure -> name:type (eg. email:string,name:string,age:number)")
-                new_interface = parse_data_structure(d[1],new_data_structure_answer)
+                new_interface = parse_data_structure(d[1],new_data_structure_answer)["filepath"]
                 add_imports(filename,new_interface) 
-    return create_interface(filename,data_structure)
+    return {"value": data_structure, "filepath": create_interface(filename,data_structure)}
 
 def add_filters(data_structure: dict,filename:str):
     with_filters = confirm("Would you like filters?")
@@ -133,15 +113,24 @@ def editable_table(data_structure: dict):
 def generate_table(design_system):
     
     component_path = Config().get("component_path")
+    print(component_path)
     component_name = Config().get("component_name")
+    print(component_name)
     source_dir = path.join(get_angular_data(),"components",design_system,"table")
+    print(source_dir)
     copy_folders(source_dir,component_path)
 
     data_structure_answer: str = question('Write the data structure for the table with the following format -> name:type (eg. email:string,name:string,age:number)')
 
     models_path = browse_dirs("In which folders the interface should be created? All the following data structures for the filters will be also created there")
-    Config().set("models_path",models_path)
-    data_structure = parse_data_structure(component_name,data_structure_answer)
+    if models_path:
+        last_part: str = path.basename(path.normpath(models_path))
+        print(last_part)
+        if "model" not in last_part.lower():
+            create_folders(["models"],models_path) #TODO: fix
+    Config().set("models_path",path.join(models_path,"models"))
+    data_structure = parse_data_structure(component_name,data_structure_answer)["value"]
+    #TODO: change 
     
     add_filters(data_structure,f"{component_name}Filters")
     editable_table(data_structure)
