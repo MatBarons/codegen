@@ -134,13 +134,12 @@ def generate_table(design_system):
     
     component_path = Config().get("component_path")
     component_name = Config().get("component_name")
-    source_dir = path.join(get_angular_data(),"component",design_system,"table")
+    source_dir = path.join(get_angular_data(),"components",design_system,"table")
     copy_folders(source_dir,component_path)
 
     data_structure_answer: str = question('Write the data structure for the table with the following format -> name:type (eg. email:string,name:string,age:number)')
 
     models_path = browse_dirs("In which folders the interface should be created? All the following data structures for the filters will be also created there")
-    print(models_path)
     Config().set("models_path",models_path)
     data_structure = parse_data_structure(component_name,data_structure_answer)
     

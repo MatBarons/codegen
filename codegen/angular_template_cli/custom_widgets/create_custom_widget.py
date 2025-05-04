@@ -25,10 +25,8 @@ def create_custom_widget():
     if option == "Table":
         component_path = browse_dirs("Choose the path where the component will be created")
         Config().set("component_path",component_path)
-        print(component_path)
         component_name = question("What's the name of the component?")
         Config().set("component_name",component_name)
-        print(component_name)
         generate_table(design_system)
     if option == "Breadcrumbs":
         print(f"Breadcrumbs will be generated in the core directory")

@@ -50,10 +50,10 @@ def browse_dirs(message=None,current_path=Path.cwd().resolve()):
 
     # Add option to go up one directory level
     if current_path.parent != current_path:
-        choices.append({"name": ".. (go up)", "value": ".."})
+        choices.append({"name": ".. (go up)", "value": {"value":"..","should_exit": False}})
 
     # Add all subdirectories
-    choices += [{"name": dir.name + "/", "value": dir.name} for dir in dirs]
+    choices += [{"name": dir.name + "/", "value": {"value": dir.name, "should_exit": False}} for dir in dirs]
 
     prompt = FuzzyPrompt(
         message=f"Current directory: {current_path}",
@@ -63,18 +63,20 @@ def browse_dirs(message=None,current_path=Path.cwd().resolve()):
     )
     @prompt.register_kb("alt-enter")
     def _handle_last_selection(event):
-        if selected == "..":
-            choice_value = current_path.parent
+        choice_value = prompt.result_value["value"]
+        if choice_value == "..":
+            event.app.exit(result={"value": current_path.parent, "should_exit": True})
         else:
-            choice_value= current_path / prompt.result_value
-        event.app.exit(result=choice_value)
+            event.app.exit(result={"value": current_path / choice_value, "should_exit": True})
+    
     selected = prompt.execute()
-    if selected is not None:
-        if selected == "..":
-            browse_dirs(current_path=current_path.parent)
+    print(selected)
+    if selected["should_exit"] is False:
+        if selected["value"] == "..":
+            return browse_dirs(current_path=current_path.parent)
         else:
-            browse_dirs(current_path=current_path / selected)
+            return browse_dirs(current_path=current_path / selected["value"])
     else:
-        return selected
+        return selected["value"]
     
         
