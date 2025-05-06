@@ -130,7 +130,7 @@ def generate_table(design_system):
             create_folders(["models"],models_path) #TODO: fix
     Config().set("models_path",path.join(models_path,"models"))
     data_structure = parse_data_structure(component_name,data_structure_answer)["value"]
-    #TODO: change 
+    #TODO: change every component_name instances to the component name given by the user
     
     add_filters(data_structure,f"{component_name}Filters")
     editable_table(data_structure)
